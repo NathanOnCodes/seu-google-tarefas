@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div>
+    <h1> Tarefas que ja foram cadastradas </h1>
+{% for post in posts%}
+    <ul>
+        <li>{{ post.nome }}</li> <p> {{ post.tarefas__concluida }} </p>
+    </ul>
+{% endfor %}
+</div>
+{% endblock %}
