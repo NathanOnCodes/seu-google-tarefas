@@ -6,7 +6,7 @@ from .models import ListaTarefa
 def index(request):
     if request.user.is_authenticated:
         return redirect('home/')
-    return redirect('login/')
+    return redirect('contas/')
 
 def home(request):
     tarefas = ListaTarefa.objects.all().order_by('-id')
@@ -18,5 +18,3 @@ def home(request):
     return render(request, 'index.html', context)
 
 
-def get_login(request):
-    return render(request, 'login.html')
