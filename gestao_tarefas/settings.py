@@ -44,6 +44,8 @@ INSTALLED_APPS = [
 
     # plugins
     'import_export',
+    'allauth',
+    'allauth.account',
 
     # Meus apps
     "tarefas",
@@ -57,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'gestao_tarefas.urls'
@@ -140,3 +143,15 @@ UNFOLD = {
     "SITE_TITLE": "Painel Administrativo de Tarefas",
     "SITE_HEADER": "Painel de tarefas"
 }
+
+
+# Auth config
+AUTHENTICATION_BACKENDS = (
+    'allauth.account.auth_backends.AuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+LOGIN_REDIRECT_URL = 'home/'
