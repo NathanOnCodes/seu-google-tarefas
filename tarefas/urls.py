@@ -1,8 +1,8 @@
-from .views import index, get_login
-from django.urls import path
+from .views import index
+from django.urls import path, include
 
 urlpatterns = [
     path('', index, name='index'),
-    path('login/', get_login, name='login'),
+    path('contas/', include('allauth.urls')),
     path('home/', index, name='home'),
 ]
