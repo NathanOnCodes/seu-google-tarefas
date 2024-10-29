@@ -2,12 +2,20 @@
 
 {% block content %}
 
+{% include "navbar.html" %}
+
 <div>
-    <h1> Tarefas que ja foram cadastradas </h1>
-{% for post in posts%}
-    <ul>
-        <li>{{ post.nome }}</li> <p> {{ post.tarefas__concluida }} </p>
-    </ul>
-{% endfor %}
+    <p class="text-center mt-4"> Ola, para criar e gerenciar sua lista de tarefas faça login abaixo </p>
+
+
+    <div> 
+        Acesse aqui
+        {% load allauth %}
+        <button type="button"> <a href="{% url 'account_login' %}"> Login </a> </button>    
+    </div>
+
 </div>
+
+
+{% include "footer.html" %}
 {% endblock %}
