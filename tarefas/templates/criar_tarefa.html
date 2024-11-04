@@ -10,7 +10,7 @@
   <h2>Crie sua tarefa</h2>
 </div>
 <div class="main-content container">
-  <form action="{% url 'tarefas' %}" method="POST">
+  <form action="{% url 'tarefas:cadastrar' %}" method="POST">
     {% csrf_token %}
     <div class="form-content form-content-grid">
       {% for field in form %}
