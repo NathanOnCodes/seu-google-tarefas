@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
-from django.urls import include
+from django.http import Http404
 from .models import ListaTarefa
 from .forms import ListaTarefaForm
 
@@ -19,17 +19,12 @@ def home(request):
 
 
 def criar_tarefa(request):
-    if request.method == 'POST':
-        form = ListaTarefaForm(request.POST)
-    else:
-        form = ListaTarefaForm()
-    
+    form = ListaTarefaForm()    
     return render(request, 'criar_tarefa.html', {'form': form})
 
 
 def tarefas(request):
-    tarefas = ListaTarefa.objects.all().order_by('-id')
-    context = {
-        'tarefas': tarefas
-    }
-    return render(request, 'tarefas.html', context=context)
+    if not request.POST:
+        raise Http404()
+    form = ListaTarefaForm(request.POST)
+    return render(request, 'tarefa_criada.html', {'form': form})
