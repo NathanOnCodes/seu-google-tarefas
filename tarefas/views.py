@@ -19,9 +19,17 @@ def home(request):
 
 
 def criar_tarefa(request):
-    form = ListaTarefaForm()
-    context = {
-        "form": form
-    }
-    return render(request, 'criar_tarefa.html', context)
+    if request.method == 'POST':
+        form = ListaTarefaForm(request.POST)
+    else:
+        form = ListaTarefaForm()
+    
+    return render(request, 'criar_tarefa.html', {'form': form})
 
+
+def tarefas(request):
+    tarefas = ListaTarefa.objects.all().order_by('-id')
+    context = {
+        'tarefas': tarefas
+    }
+    return render(request, 'tarefas.html', context=context)
