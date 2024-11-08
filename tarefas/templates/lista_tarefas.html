@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% include "navbar.html" %}
+
+{% if listas %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4">Suas Listas de Tarefas</h2>
+            
+            {% for lista in listas %}
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">{{ lista.nome }}</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        {% for tarefa in lista.tarefas.all %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {% if tarefa.concluida %}
+                            <span class="text-decoration-line-through">{{ tarefa.nome }}</span>
+                            {% else %}
+                            {{ tarefa.nome }}
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% empty %}
+            <div class="alert alert-info">
+                Você ainda não tem nenhuma lista de tarefas.
+            </div>
+            {% endfor %}
+
+            <a href="{% url 'todo:criar-lista' %}" class="btn btn-primary">
+                Criar Nova Lista
+            </a>                
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="alert alert-info">
+    Você ainda não tem nenhuma lista de tarefas.
+</div>
+{% endif %}
+{% endblock %}
