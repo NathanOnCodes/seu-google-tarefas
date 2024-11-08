@@ -4,7 +4,7 @@ from django.utils.text import slugify
 from .models import ListaTarefa, Tarefa
 from .forms import ListaTarefaForm
 
-# Create your views here.
+
 
 
 def home(request):
@@ -30,7 +30,7 @@ def criar_lista_tarefa(request):
             tarefas_texto = form.cleaned_data['nome_tarefa'].split('\n')
 
             for texto in tarefas_texto:
-                if texto.strip():  # Ignora linhas vazias
+                if texto.strip():
                     nova_tarefa = Tarefa.objects.create(nome=texto.strip())
                     lista.tarefas.add(nova_tarefa)
 
