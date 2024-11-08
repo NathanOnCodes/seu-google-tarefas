@@ -26,11 +26,15 @@ def criar_lista_tarefa(request):
                 slug=slugify(form.cleaned_data['nome_lista'])
             )
             lista.save()
-            tarefas_texto = form.cleaned_data['tarefas'].split('\n')
+
+            tarefas_texto = form.cleaned_data['nome_tarefa'].split('\n')
+
             for texto in tarefas_texto:
-                nova_tarefa = Tarefa.objects.create(nome=texto.strip())
-                lista.tarefas.add(nova_tarefa)
-            return redirect('todo:listar_tarefas')
+                if texto.strip():  # Ignora linhas vazias
+                    nova_tarefa = Tarefa.objects.create(nome=texto.strip())
+                    lista.tarefas.add(nova_tarefa)
+
+            return redirect('todo:lista_tarefas')
     else:
         form = ListaTarefaForm()
     return render(request, 'form.html', {'form': form})
