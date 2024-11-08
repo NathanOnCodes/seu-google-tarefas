@@ -63,7 +63,15 @@ def atualizar_lista(request, slug):
             'nome_lista': lista.nome,
             'nome_tarefa': '\n'.join([tarefa.nome for tarefa in lista.tarefas.all()])
         })
-    return render(request, 'atualizar_lista.html', {'form': form, 'lista': lista})     
+    return render(request, 'atualizar_lista.html', {'form': form, 'lista': lista})
+
+
+def deletar_lista(request, slug):
+    lista = get_object_or_404(ListaTarefa, slug=slug)
+    if request.method == 'POST':
+        lista.delete()
+        return redirect('todo:lista-tarefas')
+    return render(request, 'confirmar_delete_lista.html', {'lista': lista})
 
 def lista_tarefas(request):
     listas = ListaTarefa.objects.all()
