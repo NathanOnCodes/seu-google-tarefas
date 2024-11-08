@@ -11,11 +11,10 @@
     <div> 
         Acesse aqui
         {% load allauth %}
-        <button type="button"> <a href="{% url 'account_login' %}"> Login </a> </button>    
+        <button type="button"> <a href="{% url 'todo:account_login' %}"> Login </a> </button>    
     </div>
 
 </div>
 
 
-{% include "footer.html" %}
 {% endblock %}
