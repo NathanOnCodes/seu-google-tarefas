@@ -7,7 +7,7 @@ class ListaTarefa(models.Model):
     slug = models.CharField(max_length=255)
     tarefas = models.ManyToManyField("Tarefa")
 
-    class meta:
+    class Meta:
         verbose_name = "lista de tarefas"
         verbose_name_plural = "listas de tarefas"
 
@@ -23,7 +23,7 @@ class Tarefa(models.Model):
     nome = models.CharField(max_length=255)
     concluida = models.BooleanField(default=False)
 
-    class meta:
+    class Meta:
         verbose_name = "tarefa"
         verbose_name_plural = "tarefas"
 
