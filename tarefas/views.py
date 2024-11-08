@@ -76,11 +76,21 @@ def deletar_lista(request, slug):
 def deletar_tarefa(request, slug, tarefa_id):
     tarefa = get_object_or_404(Tarefa, id=tarefa_id)
     lista = get_object_or_404(ListaTarefa, slug=slug)
-    if request.Method == 'POST':
+    if request.method == 'POST':
         lista.tarefas.remove(tarefa)
         return redirect('todo:lista-tarefas')
     return render(request, 'confirmar_delete_tarefa.html', {'tarefa': tarefa, 'lista': lista})
-       
+
+def atualizar_tarefa(request, slug, tarefa_id):
+    tarefa = get_object_or_404(Tarefa, id=tarefa_id)
+    if request.method == 'POST':
+        novo_nome = request.POST.get('nome')
+        if novo_nome:
+            tarefa.nome = novo_nome
+            tarefa.save()
+        return redirect('todo:lista-tarefas')
+    return render(request, 'atualizar_tarefa.html', {'tarefa': tarefa})
+
 def lista_tarefas(request):
     listas = ListaTarefa.objects.all()
     return render(request, 'lista_tarefas.html', {'listas': listas})
