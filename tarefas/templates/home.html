@@ -6,17 +6,66 @@
 
 {% include "navbar.html" %}
 
-<div>
-    <p class="text-center mt-4"> Ola, para criar e gerenciar sua lista de tarefas faça login abaixo </p>
 
+<main>
+        <section class="py-5">
+            <div class="container">
+                <h1 class="mb-4">Organize suas tarefas com facilidade</h1>
+                <p class="lead mb-4">
+                    Este projeto é um gerenciador intuitivo para ajudá-lo(a) a gerenciar suas tarefas diárias.
+                </p>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'lista-tarefas' %}" class="btn btn-primary btn-lg">Ver minhas tarefas</a>
+                {% else %}
+                    <a href="{% url 'account_login' %}" class="btn btn-primary btn-lg">Faça login</a>
+                {% endif %}
+            </div>
+        </section>
 
-    <div> 
-        Acesse aqui
-        {% load allauth %}
-        <button type="button"> <a href="{% url 'todo:account_login' %}"> Login </a> </button>    
-    </div>
-
-</div>
+        <section class="py-5">
+            <div class="container">
+                <h2 class="mb-4">FAQ - Perguntas Frequentes: </h2>
+                <div class="accordion" id="faq-accordion">
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Como criar uma nova lista de tarefas?
+                            </button>
+                        </h3>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faq-accordion">
+                            <div class="accordion-body">
+                                Para criar uma nova lista de tarefas, basta clicar no botão "Criar Nova Lista" na página de tarefas. Você poderá atribuir um nome à sua lista e adicionar uma primeira tarefa.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Como adicionar novas tarefas?
+                            </button>
+                        </h3>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faq-accordion">
+                            <div class="accordion-body">
+                                Depois de criar uma lista, você pode adicionar novas tarefas clicando no botão "Atualizar Lista" e digitando uma nova tarefa por linha no campo fornecido.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Como excluir uma lista ou tarefa?
+                            </button>
+                        </h3>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faq-accordion">
+                            <div class="accordion-body">
+                                Para excluir uma lista ou tarefa, basta clicar nos botões "Deletar Lista" ou "Deletar Tarefa" respectivamente. Você será solicitado a confirmar a exclusão antes que ela seja efetivada.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+</main>
 
 
 {% endblock %}
