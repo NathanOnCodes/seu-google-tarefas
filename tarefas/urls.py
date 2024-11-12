@@ -1,7 +1,6 @@
 from . import views
 from django.urls import path, include
 
-app_name = 'todo'
 urlpatterns = [
     path('', views.home, name='home'),
     path('contas/', include('allauth.urls'), name='contas'),
