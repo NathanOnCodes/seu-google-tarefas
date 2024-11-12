@@ -34,7 +34,7 @@ def criar_lista_tarefa(request):
                     nova_tarefa = Tarefa.objects.create(nome=texto.strip())
                     lista.tarefas.add(nova_tarefa)
 
-            return redirect('todo:lista-tarefas')
+            return redirect('lista-tarefas')
     else:
         form = ListaTarefaForm()
     return render(request, 'form.html', {'form': form})
@@ -57,7 +57,7 @@ def atualizar_lista(request, slug):
                     nova_tarefa = Tarefa.objects.create(nome=texto.strip())
                     lista.tarefas.add(nova_tarefa)
 
-            return redirect('todo:lista-tarefas')
+            return redirect('lista-tarefas')
     else:
         form = ListaTarefaForm(initial={
             'nome_lista': lista.nome,
@@ -70,7 +70,7 @@ def deletar_lista(request, slug):
     lista = get_object_or_404(ListaTarefa, slug=slug)
     if request.method == 'POST':
         lista.delete()
-        return redirect('todo:lista-tarefas')
+        return redirect('lista-tarefas')
     return render(request, 'confirmar_delete_lista.html', {'lista': lista})
 
 def deletar_tarefa(request, slug, tarefa_id):
@@ -78,8 +78,8 @@ def deletar_tarefa(request, slug, tarefa_id):
     lista = get_object_or_404(ListaTarefa, slug=slug)
     if request.method == 'POST':
         lista.tarefas.remove(tarefa)
-        return redirect('todo:lista-tarefas')
-    return render(request, 'confirmar_delete_tarefa.html', {'tarefa': tarefa, 'lista': lista})
+        return redirect('lista-tarefas')
+    return render(request, 'confirmar_delete_lista.html', {'tarefa': tarefa, 'lista': lista})
 
 def atualizar_tarefa(request, slug, tarefa_id):
     tarefa = get_object_or_404(Tarefa, id=tarefa_id)
@@ -88,8 +88,8 @@ def atualizar_tarefa(request, slug, tarefa_id):
         if novo_nome:
             tarefa.nome = novo_nome
             tarefa.save()
-        return redirect('todo:lista-tarefas')
-    return render(request, 'atualizar_tarefa.html', {'tarefa': tarefa})
+        return redirect('lista-tarefas')
+    return render(request, 'atualizar_lista.html', {'tarefa': tarefa})
 
 def lista_tarefas(request):
     listas = ListaTarefa.objects.all()
