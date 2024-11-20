@@ -15,8 +15,6 @@ class ListaTarefa(models.Model):
     def __str__(self) -> str:
         return f"sua tarefa: {self.nome} e ({self.slug})"
     
-    def get_url_absoluta(self) -> str:
-        return reverse("tarefas:tarefas", kwargs={"slug": self.slug})
     
     
 class Tarefa(models.Model):
