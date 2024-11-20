@@ -5,7 +5,7 @@ from django.urls import reverse
 
 
 @pytest.mark.django_db
-class TestTarefaLista:
+class TestTarefaListaModel:
     def test_criar_lista(self):
         lista = ListaTarefa(
             nome="Minha lista",
@@ -48,3 +48,11 @@ class TestTarefaLista:
         assert lista._meta.verbose_name_plural == "listas de tarefas"
 
 
+@pytest.mark.django_db
+class TestTarefaModel:
+    def test_criar_tarefa(self):
+        tarefa = Tarefa(
+            nome="Tarefa 1",
+        )
+        assert tarefa.nome == "Tarefa 1"
+        
