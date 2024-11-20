@@ -28,7 +28,7 @@ class TestTarefaLista:
         lista = ListaTarefa.objects.create(
             nome="Minha lista",
             slug="minha-lista"
-        )      
+        )
         tarefa1 = Tarefa.objects.create(nome="Tarefa 1")
         tarefa2 = Tarefa.objects.create(nome="Tarefa 2")
 
@@ -37,3 +37,14 @@ class TestTarefaLista:
 
         assert lista.tarefas.count() == 2
         assert list(lista.tarefas.values_list('nome', flat=True)) == ["Tarefa 1", "Tarefa 2"]
+    
+
+    def test_verbose_nmar(self):
+        lista = ListaTarefa.objects.create(
+            nome="lista de tarefas",
+            slug="lista-tarefas"
+        )
+        assert lista._meta.verbose_name == "lista de tarefas"
+        assert lista._meta.verbose_name_plural == "listas de tarefas"
+
+
