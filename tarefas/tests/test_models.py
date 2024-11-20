@@ -58,6 +58,26 @@ class TestTarefaModel:
     
     def test_str_repr(self):
         tarefa = Tarefa(
-            nome="Tarefa 1",
+            nome="compras",
         )
-        assert tarefa.__str__() == "Tarefa 1"
+        assert str(tarefa) == "compras"
+
+    def concluir_tarefa(self):
+        tarefa = Tarefa.objects.create(
+            nome="estudar",
+            concluida=False
+        )
+
+        assert tarefa.concluida == False
+
+        tarefa.concluida = True
+        tarefa.save()
+
+        tarefa_atualizada = Tarefa.objects.get(id=tarefa.id)
+        assert tarefa_atualizada.concluida
+    
+
+    def test_tarefa_verbose_name(self):
+        tarefa = Tarefa.objects.create(nome = "mercado")
+        assert tarefa._meta.verbose_name == "tarefa"
+        assert tarefa._meta.verbose_name_plural == "tarefas"
