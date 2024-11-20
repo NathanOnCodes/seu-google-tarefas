@@ -55,4 +55,9 @@ class TestTarefaModel:
             nome="Tarefa 1",
         )
         assert tarefa.nome == "Tarefa 1"
-        
+    
+    def test_str_repr(self):
+        tarefa = Tarefa(
+            nome="Tarefa 1",
+        )
+        assert tarefa.__str__() == "Tarefa 1"
