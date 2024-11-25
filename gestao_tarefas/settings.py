@@ -24,6 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-s%vahzz)r#we1kmv+2wf%tub&@4i9wwps(nb-(=4h%m@i-l&sl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+if os.environ.get("DEBUG"):
+    DEBUG = os.environ.get("DEBUG")
+
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -87,13 +90,31 @@ WSGI_APPLICATION = 'gestao_tarefas.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("DB_NAME"),
+        "HOST": os.environ.get("DB_HOST"),
+        "USER": os.environ.get("DB_USER"),
+        "PASSWORD": os.environ.get("DB_PASSWORD"),
+        "PORT": "5432",
     }
 }
 
+if os.environ.get('TESTING') == 'true':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
