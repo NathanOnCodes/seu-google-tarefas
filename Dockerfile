@@ -1,13 +1,19 @@
-FROM python:3.12-slim
+FROM python:3.12-slim AS builder
 
 WORKDIR /app
-
-COPY requirements*.txt ./
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-EXPOSE 8000
+FROM python:3.12-slim
+WORKDIR /app
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Copiar os pacotes instalados do builder
+COPY --from=builder /usr/local/lib/python3.12/site-packages/ /usr/local/lib/python3.12/site-packages/
+COPY --from=builder /app /app
+
+RUN adduser --disabled-password --no-create-home django-user
+USER django-user
+
+EXPOSE 8000
